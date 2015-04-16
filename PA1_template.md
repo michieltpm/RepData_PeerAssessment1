@@ -33,6 +33,15 @@ if (file.exists(File)){
 
 ```r
 #check df and change date var to class date
+# your LOCAL TIME -> English
+Sys.setlocale("LC_TIME", "English") 
+```
+
+```
+## [1] "English_United States.1252"
+```
+
+```r
 dat1$date <- as.Date(as.character(dat1$date), "%Y-%m-%d")
 # check df
 str(dat1)
@@ -197,12 +206,25 @@ median(dailystepsnew, na.rm=T)
 
 ```r
 #Add extra column to df with day of the week named day
+Sys.setlocale("LC_TIME", "English United States") 
+```
+
+```
+## Warning in Sys.setlocale("LC_TIME", "English United States"): OS reports
+## request to set locale to "English United States" cannot be honored
+```
+
+```
+## [1] ""
+```
+
+```r
 dfNArepl$day <- weekdays(dfNArepl$date)
 #Add extra column to df with week or weekend
 dfNArepl$week <- dfNArepl$day
 #Use a for loop to check for the name of the day: If its a Saturday or Sunday change to weekend, ifnot change to week
 for (i in 1:nrow(dfNArepl)){
-        ifelse (dfNArepl$week[i] == "zaterdag"|| dfNArepl$week =="zondag",
+        ifelse (dfNArepl$week[i] == "Saturday"|| dfNArepl$week =="Sunday",
                 (dfNArepl$week[i] <- "weekend"), (dfNArepl$week[i] <- "week"))
 }
 
